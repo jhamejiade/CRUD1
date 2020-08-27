@@ -1,0 +1,34 @@
+﻿@model WebCRUD1._1.Models.producto
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_producto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_producto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio_producto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_producto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id_producto }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="crudweb1ModelStoreContainer" CdmEntityContainer="crudweb1Entities">
+    <EntitySetMapping Name="producto">
+      <EntityTypeMapping TypeName="crudweb1Model.producto">
+        <MappingFragment StoreEntitySet="producto">
+          <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+          <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+          <ScalarProperty Name="precio_producto" ColumnName="precio_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="crudweb1Model.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="cedula_usuario" ColumnName="cedula_usuario" />
+          <ScalarProperty Name="contraseña_usuario" ColumnName="contraseña_usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario_producto">
+      <EntityTypeMapping TypeName="crudweb1Model.usuario_producto">
+        <MappingFragment StoreEntitySet="usuario_producto">
+          <ScalarProperty Name="id_up" ColumnName="id_up" />
+          <ScalarProperty Name="cedula_usuario" ColumnName="cedula_usuario" />
+          <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

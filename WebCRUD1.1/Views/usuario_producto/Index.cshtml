@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebCRUD1._1.Models.usuario_producto>
+
+@{
+    ViewBag.Title = "Venta";
+}
+
+<h2>Venta</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.cedula_usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.producto.id_producto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.cedula_usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.producto.id_producto)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id_up }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.id_up }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.id_up })
+        </td>
+    </tr>
+}
+
+</table>

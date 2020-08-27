@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="crudweb1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_producto" Type="varchar" MaxLength="50" />
+          <Property Name="precio_producto" Type="int" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="cedula_usuario" />
+          </Key>
+          <Property Name="cedula_usuario" Type="bigint" Nullable="false" />
+          <Property Name="contraseña_usuario" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="usuario_producto">
+          <Key>
+            <PropertyRef Name="id_up" />
+          </Key>
+          <Property Name="id_up" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula_usuario" Type="bigint" />
+          <Property Name="id_producto" Type="int" />
+        </EntityType>
+        <Association Name="FK__usuario_p__cedul__3F466844">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="usuario_producto" Type="Self.usuario_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="cedula_usuario" />
+            </Principal>
+            <Dependent Role="usuario_producto">
+              <PropertyRef Name="cedula_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario_p__id_pr__403A8C7D">
+          <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
+          <End Role="usuario_producto" Type="Self.usuario_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id_producto" />
+            </Principal>
+            <Dependent Role="usuario_producto">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="crudweb1ModelStoreContainer">
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario_producto" EntityType="Self.usuario_producto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__usuario_p__cedul__3F466844" Association="Self.FK__usuario_p__cedul__3F466844">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuario_producto" EntitySet="usuario_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario_p__id_pr__403A8C7D" Association="Self.FK__usuario_p__id_pr__403A8C7D">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="usuario_producto" EntitySet="usuario_producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="crudweb1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_producto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio_producto" Type="Int32" />
+          <NavigationProperty Name="usuario_producto" Relationship="Self.FK__usuario_p__id_pr__403A8C7D" FromRole="producto" ToRole="usuario_producto" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="cedula_usuario" />
+          </Key>
+          <Property Name="cedula_usuario" Type="Int64" Nullable="false" />
+          <Property Name="contraseña_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario_producto" Relationship="Self.FK__usuario_p__cedul__3F466844" FromRole="usuario" ToRole="usuario_producto" />
+        </EntityType>
+        <EntityType Name="usuario_producto">
+          <Key>
+            <PropertyRef Name="id_up" />
+          </Key>
+          <Property Name="id_up" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula_usuario" Type="Int64" />
+          <Property Name="id_producto" Type="Int32" />
+          <NavigationProperty Name="producto" Relationship="Self.FK__usuario_p__id_pr__403A8C7D" FromRole="usuario_producto" ToRole="producto" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK__usuario_p__cedul__3F466844" FromRole="usuario_producto" ToRole="usuario" />
+        </EntityType>
+        <Association Name="FK__usuario_p__id_pr__403A8C7D">
+          <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
+          <End Role="usuario_producto" Type="Self.usuario_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id_producto" />
+            </Principal>
+            <Dependent Role="usuario_producto">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario_p__cedul__3F466844">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="usuario_producto" Type="Self.usuario_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="cedula_usuario" />
+            </Principal>
+            <Dependent Role="usuario_producto">
+              <PropertyRef Name="cedula_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="crudweb1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="producto" EntityType="Self.producto" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <EntitySet Name="usuario_producto" EntityType="Self.usuario_producto" />
+          <AssociationSet Name="FK__usuario_p__id_pr__403A8C7D" Association="Self.FK__usuario_p__id_pr__403A8C7D">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="usuario_producto" EntitySet="usuario_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario_p__cedul__3F466844" Association="Self.FK__usuario_p__cedul__3F466844">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="usuario_producto" EntitySet="usuario_producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="crudweb1ModelStoreContainer" CdmEntityContainer="crudweb1Entities">
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="crudweb1Model.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+                <ScalarProperty Name="precio_producto" ColumnName="precio_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="crudweb1Model.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="cedula_usuario" ColumnName="cedula_usuario" />
+                <ScalarProperty Name="contraseña_usuario" ColumnName="contraseña_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario_producto">
+            <EntityTypeMapping TypeName="crudweb1Model.usuario_producto">
+              <MappingFragment StoreEntitySet="usuario_producto">
+                <ScalarProperty Name="id_up" ColumnName="id_up" />
+                <ScalarProperty Name="cedula_usuario" ColumnName="cedula_usuario" />
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

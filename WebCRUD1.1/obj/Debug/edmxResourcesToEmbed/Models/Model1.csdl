@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crudweb1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="producto">
+    <Key>
+      <PropertyRef Name="id_producto" />
+    </Key>
+    <Property Name="id_producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_producto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="precio_producto" Type="Int32" />
+    <NavigationProperty Name="usuario_producto" Relationship="Self.FK__usuario_p__id_pr__403A8C7D" FromRole="producto" ToRole="usuario_producto" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="cedula_usuario" />
+    </Key>
+    <Property Name="cedula_usuario" Type="Int64" Nullable="false" />
+    <Property Name="contraseña_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="usuario_producto" Relationship="Self.FK__usuario_p__cedul__3F466844" FromRole="usuario" ToRole="usuario_producto" />
+  </EntityType>
+  <EntityType Name="usuario_producto">
+    <Key>
+      <PropertyRef Name="id_up" />
+    </Key>
+    <Property Name="id_up" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cedula_usuario" Type="Int64" />
+    <Property Name="id_producto" Type="Int32" />
+    <NavigationProperty Name="producto" Relationship="Self.FK__usuario_p__id_pr__403A8C7D" FromRole="usuario_producto" ToRole="producto" />
+    <NavigationProperty Name="usuario" Relationship="Self.FK__usuario_p__cedul__3F466844" FromRole="usuario_producto" ToRole="usuario" />
+  </EntityType>
+  <Association Name="FK__usuario_p__id_pr__403A8C7D">
+    <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
+    <End Role="usuario_producto" Type="Self.usuario_producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="id_producto" />
+      </Principal>
+      <Dependent Role="usuario_producto">
+        <PropertyRef Name="id_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__usuario_p__cedul__3F466844">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+    <End Role="usuario_producto" Type="Self.usuario_producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="cedula_usuario" />
+      </Principal>
+      <Dependent Role="usuario_producto">
+        <PropertyRef Name="cedula_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="crudweb1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="producto" EntityType="Self.producto" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <EntitySet Name="usuario_producto" EntityType="Self.usuario_producto" />
+    <AssociationSet Name="FK__usuario_p__id_pr__403A8C7D" Association="Self.FK__usuario_p__id_pr__403A8C7D">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="usuario_producto" EntitySet="usuario_producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__usuario_p__cedul__3F466844" Association="Self.FK__usuario_p__cedul__3F466844">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="usuario_producto" EntitySet="usuario_producto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
